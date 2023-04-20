@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
-  const { singInUser } = useContext(AuthContext);
+  const { singInUser, signInWithGoogle } = useContext(AuthContext);
   console.log(singInUser);
 
   const handleLogin = (event) => {
@@ -22,6 +22,17 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error.message);
+      });
+  };
+
+  const handleGoogleSingIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -57,6 +68,11 @@ const Login = () => {
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary">Login</button>
+            </div>
+            <div>
+              <button onClick={handleGoogleSingIn} className="btn btn-primary">
+                Google
+              </button>
             </div>
           </form>
         </div>
